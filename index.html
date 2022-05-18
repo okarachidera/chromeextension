@@ -2,20 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lead Vault</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <!-- <p id="dis-el">none</p> -->
-    <input type="text" id="input-el">
-    <button id="input-btn">Save Url</button>
-    <button id="tab-btn">Grab Url</button>
-    <button id="delete-btn">Delete All</button>
-    <ul id="ul-el"></ul>
+    <main class="popup">
+        <header class="header">
+            <p class="eyebrow">Lead Collector</p>
+            <h1>Lead Vault</h1>
+            <p class="subtitle">Save and revisit high-value pages in one click.</p>
+        </header>
 
-    <script src="index.js"></script>
-    
+        <section class="controls" aria-label="Lead controls">
+            <label class="sr-only" for="input-el">Website URL</label>
+            <input type="text" id="input-el" placeholder="Paste a URL or domain" autocomplete="off">
+            <label class="sr-only" for="tag-input-el">Tags</label>
+            <input type="text" id="tag-input-el" placeholder="Tags (comma separated)">
+            <div class="button-row">
+                <button id="input-btn" class="btn btn-primary" type="button">Save URL</button>
+                <button id="tab-btn" class="btn btn-secondary" type="button">Save Current Tab</button>
+            </div>
+            <div class="button-row">
+                <button id="delete-btn" class="btn btn-ghost" type="button">Clear All</button>
+            </div>
+            <p id="status-el" class="status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="toolbar" aria-label="Search and organization tools">
+            <input type="search" id="search-el" placeholder="Search URLs or tags">
+            <div class="toolbar-row">
+                <label class="sr-only" for="sort-el">Sort leads</label>
+                <select id="sort-el">
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
+                    <option value="alpha">A to Z</option>
+                    <option value="alpha_desc">Z to A</option>
+                </select>
+
+                <label class="sr-only" for="tag-filter-el">Filter by tag</label>
+                <select id="tag-filter-el">
+                    <option value="all">All tags</option>
+                </select>
+            </div>
+            <div class="toolbar-row">
+                <button id="export-json-btn" class="btn btn-export" type="button">Export JSON</button>
+                <button id="export-csv-btn" class="btn btn-export" type="button">Export CSV</button>
+            </div>
+            <label class="sync-toggle">
+                <input id="sync-toggle" type="checkbox">
+                <span>Use Chrome Sync</span>
+            </label>
+        </section>
+
+        <section class="list-section" aria-label="Saved leads">
+            <div class="list-header">
+                <h2>Saved Leads</h2>
+                <span id="count-el" class="count-pill">0</span>
+            </div>
+            <ul id="ul-el" class="lead-list"></ul>
+            <p id="empty-el" class="empty-state">No leads yet. Save your first one.</p>
+        </section>
+    </main>
+
+    <script type="module" src="index.js"></script>
 </body>
 </html>
