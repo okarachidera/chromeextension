@@ -1,5 +1,6 @@
 export function normalizeUrl(value) {
-    const candidate = /^(https?:\/\/)/i.test(value) ? value : `https://${value}`;
+    const hasProtocol = /^[a-zA-Z][a-zA-Z\d+.-]*:\/\//.test(value);
+    const candidate = hasProtocol ? value : `https://${value}`;
 
     try {
         const parsed = new URL(candidate);

@@ -40,7 +40,7 @@ async function loadLeadsByMode(useSync, localLeads) {
     return [];
 }
 
-function toLeadRecord(item) {
+export function toLeadRecord(item) {
     if (typeof item === "string") {
         return {
             id: fallbackId(),

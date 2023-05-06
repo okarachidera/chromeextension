@@ -2,6 +2,13 @@
 
 Lead Vault is a modern Chrome extension popup that helps you capture, store, and manage useful URLs while browsing.
 
+## Demo
+
+![Lead Vault Popup Preview](assets/lead-vault-popup-preview.svg)
+![Lead Vault Workflow](assets/lead-vault-workflow.svg)
+
+For a short GIF recording of the real extension popup, add `assets/lead-vault-demo.gif` and embed it in this section.
+
 ## Why This Project Stands Out
 
 - Clean, intentional UI for a polished first impression
@@ -41,6 +48,22 @@ Lead Vault is a modern Chrome extension popup that helps you capture, store, and
 3. Click **Load unpacked**.
 4. Select this project folder.
 5. Pin and open the extension from the toolbar.
+
+## Testing
+
+1. Run `npm test` for automated tests.
+2. Run `npm run check` for syntax checks.
+
+## Packaging
+
+1. Run `npm run package` to generate `dist/lead-vault-extension.zip`.
+2. Upload that zip to Chrome Web Store developer dashboard.
+3. Follow the release checklist in `docs/chrome-web-store-release.md`.
+
+## Chrome Web Store
+
+- Release checklist: `docs/chrome-web-store-release.md`
+- After publishing, add your public listing URL here.
 
 ## Key Product Decisions
 

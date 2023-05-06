@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="420" viewBox="0 0 1100 420">
+  <rect width="1100" height="420" fill="#f8fafc"/>
+  <text x="550" y="52" font-family="Arial, sans-serif" font-size="28" fill="#1e2930" text-anchor="middle" font-weight="700">Lead Vault Workflow</text>
+  <rect x="70" y="110" width="230" height="180" rx="14" fill="#ffffff" stroke="#cfd8dc"/>
+  <text x="185" y="150" font-family="Arial, sans-serif" font-size="17" fill="#0f766e" text-anchor="middle" font-weight="700">Capture</text>
+  <text x="185" y="184" font-family="Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle">Save URL or Current Tab</text>
+  <text x="185" y="206" font-family="Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle">Attach tags</text>
+
+  <rect x="435" y="110" width="230" height="180" rx="14" fill="#ffffff" stroke="#cfd8dc"/>
+  <text x="550" y="150" font-family="Arial, sans-serif" font-size="17" fill="#0f766e" text-anchor="middle" font-weight="700">Organize</text>
+  <text x="550" y="184" font-family="Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle">Search, filter by tag</text>
+  <text x="550" y="206" font-family="Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle">Sort by date or title</text>
+
+  <rect x="800" y="110" width="230" height="180" rx="14" fill="#ffffff" stroke="#cfd8dc"/>
+  <text x="915" y="150" font-family="Arial, sans-serif" font-size="17" fill="#0f766e" text-anchor="middle" font-weight="700">Ship</text>
+  <text x="915" y="184" font-family="Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle">Export JSON/CSV</text>
+  <text x="915" y="206" font-family="Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle">Use Local or Sync mode</text>
+
+  <path d="M320 200 H410" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="410,200 394,191 394,209" fill="#94a3b8"/>
+  <path d="M685 200 H775" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="775,200 759,191 759,209" fill="#94a3b8"/>
+</svg>
