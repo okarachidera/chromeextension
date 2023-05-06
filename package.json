@@ -1,0 +1,11 @@
+{
+  "name": "lead-vault-extension",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check index.js && node --check js/config.js && node --check js/storage.js && node --check js/ui.js && node --check js/utils.js",
+    "package": "sh scripts/package-extension.sh"
+  }
+}
