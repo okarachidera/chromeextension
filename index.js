@@ -1,4 +1,4 @@
-import { loadAppData, saveLeads, setSyncMode } from "./js/storage.js";
+import { isSyncStorageLimitError, loadAppData, saveLeads, setSyncMode } from "./js/storage.js";
 import { getDom, renderLeads, renderTagFilterOptions, setSyncToggle, showStatus } from "./js/ui.js";
 import { buildLead, getAllTags, normalizeUrl, parseTags, toCsvExport, toJsonExport, triggerFileDownload } from "./js/utils.js";
 
@@ -15,12 +15,22 @@ const state = {
 init();
 
 async function init() {
-    const appData = await loadAppData();
-    state.leads = appData.leads;
-    state.useSync = appData.useSync;
+    let failedToLoad = false;
+    try {
+        const appData = await loadAppData();
+        state.leads = appData.leads;
+        state.useSync = appData.useSync;
+    } catch {
+        state.leads = [];
+        state.useSync = false;
+        failedToLoad = true;
+    }
     setSyncToggle(dom, state.useSync);
     bindEvents();
     await persistAndRender();
+    if (failedToLoad) {
+        showStatus(dom, "Storage load issue detected. Running in local mode.", true);
+    }
 }
 
 function bindEvents() {
@@ -148,8 +158,12 @@ function onExportCsv() {
 
 async function onSyncToggle(event) {
     state.useSync = event.target.checked;
-    await setSyncMode(state.useSync, state.leads);
-    showStatus(dom, state.useSync ? "Sync mode enabled." : "Local mode enabled.");
+    try {
+        await setSyncMode(state.useSync, state.leads);
+        showStatus(dom, state.useSync ? "Sync mode enabled." : "Local mode enabled.");
+    } catch (error) {
+        await recoverFromStorageFailure(error, true);
+    }
 }
 
 async function addOrUpdateLead(url, tags) {
@@ -170,8 +184,35 @@ async function addOrUpdateLead(url, tags) {
 }
 
 async function persistAndRender() {
-    await saveLeads(state.leads, state.useSync);
+    try {
+        await saveLeads(state.leads, state.useSync);
+    } catch (error) {
+        await recoverFromStorageFailure(error, false);
+    }
     renderCurrentView();
+}
+
+async function recoverFromStorageFailure(error, fromSyncToggle) {
+    if (state.useSync) {
+        state.useSync = false;
+        setSyncToggle(dom, false);
+        try {
+            await setSyncMode(false, state.leads);
+        } catch {
+            showStatus(dom, "Storage write failed in both sync and local modes.", true);
+            return;
+        }
+        const statusMessage = isSyncStorageLimitError(error)
+            ? "Sync storage limit reached. Switched to local mode."
+            : "Sync save failed. Switched to local mode.";
+        showStatus(dom, statusMessage, true);
+        return;
+    }
+
+    const fallbackMessage = fromSyncToggle
+        ? "Could not change storage mode. Please try again."
+        : "Could not save leads. Please try again.";
+    showStatus(dom, fallbackMessage, true);
 }
 
 function renderCurrentView() {

@@ -90,9 +90,36 @@ function fallbackId() {
 }
 
 function storageGet(area, keys) {
-    return new Promise((resolve) => area.get(keys, resolve));
+    return new Promise((resolve, reject) => {
+        area.get(keys, (result) => {
+            const storageError = chrome.runtime?.lastError;
+            if (storageError) {
+                reject(new Error(storageError.message || "Failed to read extension storage."));
+                return;
+            }
+            resolve(result);
+        });
+    });
 }
 
 function storageSet(area, value) {
-    return new Promise((resolve) => area.set(value, resolve));
+    return new Promise((resolve, reject) => {
+        area.set(value, () => {
+            const storageError = chrome.runtime?.lastError;
+            if (storageError) {
+                reject(new Error(storageError.message || "Failed to write extension storage."));
+                return;
+            }
+            resolve();
+        });
+    });
+}
+
+export function isSyncStorageLimitError(error) {
+    if (!error || typeof error.message !== "string") {
+        return false;
+    }
+
+    const normalized = error.message.toLowerCase();
+    return normalized.includes("quota") || normalized.includes("max write operations");
 }
